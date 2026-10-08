@@ -11,7 +11,7 @@ import {
 import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useContactModal } from '../context/useContactModal';
-import { navLinks, personal } from '../data/content';
+import { mobileMenuLinks, navLinks, personal } from '../data/content';
 import { trapTabKey } from '../lib/focusTrap';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -239,7 +239,7 @@ export default function Navbar() {
             </div>
 
             <nav className="flex flex-1 flex-col items-start justify-center gap-2">
-              {navLinks.map((link, i) => (
+              {mobileMenuLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}

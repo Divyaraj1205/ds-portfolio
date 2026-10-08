@@ -23,7 +23,7 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden bg-black px-4 py-28 sm:px-6 md:py-40"
+      className="relative overflow-hidden bg-black px-4 py-20 sm:px-6 sm:py-28 md:py-40"
     >
       <div className="bg-noise" aria-hidden="true" />
       <div className="relative mx-auto max-w-6xl">
@@ -40,7 +40,7 @@ export default function Contact() {
           whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
-          className="mt-8 max-w-md text-sm leading-relaxed text-text-secondary sm:mt-10 sm:text-base"
+          className="mt-14 max-w-md text-sm leading-relaxed text-text-secondary sm:mt-10 sm:text-base"
           data-cursor="text"
         >
           Have an idea, website, brand, or digital experience in mind? Let&rsquo;s turn it into

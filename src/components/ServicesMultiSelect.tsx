@@ -136,7 +136,7 @@ export default function ServicesMultiSelect({ id, options, value, onChange, erro
                   type="button"
                   aria-label={`Remove ${v}`}
                   onClick={() => removeChip(v)}
-                  className="pointer-events-auto relative z-10 flex h-4 w-4 items-center justify-center rounded-full text-cream/50 transition-colors duration-200 hover:bg-cream/10 hover:text-cream"
+                  className="pointer-events-auto relative z-10 flex h-4 w-4 items-center justify-center rounded-full text-cream/50 transition-colors duration-200 after:absolute after:-inset-1 after:content-[''] hover:bg-cream/10 hover:text-cream"
                 >
                   <X className="h-2.5 w-2.5" />
                 </button>

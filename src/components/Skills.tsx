@@ -274,7 +274,12 @@ function EducationObject({ reduce, isFine }: { reduce: boolean; isFine: boolean 
       onMouseEnter={handleEnter}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className="relative mt-2 lg:mt-0 lg:pl-9"
+      // `id` + scroll margin: Education has no section of its own, so this is
+      // what the mobile menu / footer "Education" links jump to. Below lg it
+      // spans the full row under Key Strengths; max-w-lg keeps the big "01"
+      // beside the content there instead of stranded at the far edge.
+      id="education"
+      className="relative mt-2 max-w-lg scroll-mt-24 lg:mt-0 lg:max-w-none lg:pl-9"
     >
       {/* huge subtle 01 behind the composition */}
       <motion.span
@@ -323,6 +328,9 @@ function EducationObject({ reduce, isFine }: { reduce: boolean; isFine: boolean 
             onPointerLeave={() => setIsHovered(false)}
             animate={reduce ? undefined : { y: isHovered ? -3 : 0 }}
             transition={{ duration: 0.35, ease: EASE }}
+            // Phones: keep the degree clear of the decorative "01" (it wraps
+            // onto two lines, as it already does on desktop).
+            className="pr-20 sm:pr-0"
           >
             <WordsPullUp
               as="h3"
@@ -361,6 +369,14 @@ function EducationObject({ reduce, isFine }: { reduce: boolean; isFine: boolean 
           >
             {education.field}
           </motion.p>
+          <motion.p
+            initial={reduce ? undefined : { opacity: 0, y: 8 }}
+            animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+            transition={{ duration: 0.35, delay: reduce ? 0 : 0.58, ease: EASE }}
+            className="mt-1 text-sm text-text-secondary sm:text-base"
+          >
+            {education.institution}
+          </motion.p>
 
           <div className="mt-8 flex items-center gap-3">
             <div className="h-px flex-1 overflow-hidden">
@@ -379,6 +395,14 @@ function EducationObject({ reduce, isFine }: { reduce: boolean; isFine: boolean 
               transition={{ duration: 0.25, delay: reduce ? 0 : 0.9, ease: EASE }}
               className="h-1.5 w-1.5 shrink-0 rounded-full bg-cream/50"
             />
+            <motion.span
+              initial={reduce ? undefined : { opacity: 0 }}
+              animate={show ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.35, delay: reduce ? 0 : 0.95, ease: EASE }}
+              className="shrink-0 text-[10px] uppercase tracking-[0.3em] text-cream/55"
+            >
+              {education.status}
+            </motion.span>
           </div>
 
           {/* What I Bring — fills the space below Education with a compact,
@@ -439,7 +463,7 @@ export default function Skills() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="skills" className="bg-black px-4 py-24 sm:px-6 md:py-32">
+    <section id="skills" className="bg-black px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
         <WordsPullUp
           as="h2"
@@ -455,7 +479,7 @@ export default function Skills() {
         </div>
 
         {/* Tools */}
-        <div className="mt-20 sm:mt-24">
+        <div className="mt-16 sm:mt-24">
           <span className="text-xs uppercase tracking-[0.3em] text-cream/45">Tools</span>
           <div className="mt-6 flex flex-wrap gap-3">
             {tools.map((tool, i) => {
@@ -478,7 +502,7 @@ export default function Skills() {
         </div>
 
         {/* Specialization */}
-        <div className="mt-20 sm:mt-24">
+        <div className="mt-16 sm:mt-24">
           <span className="text-xs uppercase tracking-[0.3em] text-cream/45">Specialization</span>
           <motion.div
             initial={reduce ? undefined : { opacity: 0 }}
@@ -504,7 +528,7 @@ export default function Skills() {
         </div>
 
         {/* Key strengths + Education */}
-        <div className="mt-20 grid gap-14 sm:mt-24 lg:grid-cols-[1.4fr_1fr] lg:gap-10">
+        <div className="mt-16 grid gap-14 sm:mt-24 lg:grid-cols-[1.4fr_1fr] lg:gap-10">
           <div>
             <span className="text-xs uppercase tracking-[0.3em] text-cream/45">Key Strengths</span>
             <div className="relative mt-8">

@@ -686,7 +686,9 @@ function PanelConnector({ reduce }: { reduce: boolean }) {
 
 function ExperienceShowcase({ reduce }: { reduce: boolean }) {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    // No extra gutter below sm: the section's own px-4 already provides it
+    // (doubling it squeezed the panels' text column on phones).
+    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <ExperiencePanel role={roles[0]} reduce={reduce} />
       <PanelConnector reduce={reduce} />
       <ExperiencePanel role={roles[1]} reduce={reduce} />
@@ -872,7 +874,9 @@ function StepColumn({ stage, index, show, reduce, isActive, justReached, pulseKe
         </div>
       </motion.div>
 
-      <div className="mt-6 flex flex-col items-center text-center">
+      {/* Black backing below md only: in the stacked layout the vertical
+          connector passes behind this text instead of striking through it. */}
+      <div className="mt-6 flex flex-col items-center bg-black text-center md:bg-transparent">
         <span
           className={`h-1.5 w-1.5 rounded-full transition-colors ${STEP_STATE_TRANSITION} ${isActive ? 'bg-cream/70' : 'bg-cream/25'}`}
           aria-hidden="true"

@@ -186,10 +186,23 @@ export const navLinks = [
   { label: 'Contact', href: '#contact' },
 ] as const;
 
+// The full-screen mobile menu has room for one more entry than the desktop
+// bar (which is at capacity): Education lives inside Skills with no nav link
+// of its own, and on phones it otherwise sits far below Key Strengths.
+export const mobileMenuLinks = [
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Education', href: '#education' },
+  { label: 'Work', href: '#work' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Contact', href: '#contact' },
+] as const;
+
 export const footerNavLinks = [
   { label: 'About', href: '#about' },
   { label: 'Work', href: '#work' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Education', href: '#education' },
   { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' },
 ] as const;

@@ -79,7 +79,7 @@ export default function Hero() {
               initial={reduce ? undefined : { opacity: 0, y: 35, clipPath: 'inset(100% 0 0 0)' }}
               animate={reduce ? undefined : { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)' }}
               transition={{ duration: 0.65, delay: 0.12, ease: EASE }}
-              className="select-none whitespace-nowrap font-display font-bold leading-[0.85] tracking-tightest text-cream text-[5.1vw] sm:text-[5.25vw] md:text-[5.1vw] lg:text-[5.3vw] xl:text-[5.5vw]"
+              className="select-none whitespace-nowrap font-display font-bold leading-[0.85] tracking-tightest text-cream text-[length:min(13vw,3.25rem)] sm:text-[5.25vw] md:text-[5.1vw] lg:text-[5.3vw] xl:text-[5.5vw]"
             >
               {personal.displayLast}
             </motion.h1>
@@ -121,7 +121,7 @@ export default function Hero() {
           </div>
 
           {/* Micro details */}
-          <div className="mt-8 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-cream/35 sm:text-[11px]">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[10px] uppercase tracking-[0.3em] text-cream/35 sm:text-[11px]">
             <span>Web / Design / AI</span>
             <span>{personal.locationShort}</span>
           </div>
