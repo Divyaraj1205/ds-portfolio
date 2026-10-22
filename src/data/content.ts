@@ -104,13 +104,6 @@ export const keyStrengths = [
   'Business-Oriented Approach',
 ] as const;
 
-export const education = {
-  degree: 'Bachelor of Engineering',
-  field: 'Computer Engineering',
-  institution: 'VVP Engineering College, Rajkot',
-  status: 'Student',
-};
-
 export const experienceResponsibilities = [
   'Designed and developed responsive, user-focused websites using HTML, CSS, JavaScript, React, WordPress and Shopify for freelance and client projects.',
   'Built and customized WordPress websites using Elementor to deliver fast, editable, client-ready builds.',
@@ -186,23 +179,10 @@ export const navLinks = [
   { label: 'Contact', href: '#contact' },
 ] as const;
 
-// The full-screen mobile menu has room for one more entry than the desktop
-// bar (which is at capacity): Education lives inside Skills with no nav link
-// of its own, and on phones it otherwise sits far below Key Strengths.
-export const mobileMenuLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Education', href: '#education' },
-  { label: 'Work', href: '#work' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
-] as const;
-
 export const footerNavLinks = [
   { label: 'About', href: '#about' },
   { label: 'Work', href: '#work' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Education', href: '#education' },
   { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' },
 ] as const;

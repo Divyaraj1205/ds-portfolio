@@ -14,7 +14,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useRef, useState, type ComponentType, type MouseEvent, type PointerEvent } from 'react';
-import { capabilities, education, keyStrengths, specialization, tools } from '../data/content';
+import { capabilities, keyStrengths, specialization, tools } from '../data/content';
 import { useFinePointer } from '../hooks/useMediaQuery';
 import WordsPullUp from './WordsPullUp';
 
@@ -236,222 +236,56 @@ const whatIBring = [
   },
 ];
 
-function EducationObject({ reduce, isFine }: { reduce: boolean; isFine: boolean }) {
+function WhatIBring({ reduce }: { reduce: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px -10% 0px' });
   const show = reduce || inView;
-  const [isHovered, setIsHovered] = useState(false);
-
-  const parallaxActive = isFine && !reduce;
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const decorSpringX = useSpring(rawX, { stiffness: 120, damping: 22, mass: 0.5 });
-  const decorSpringY = useSpring(rawY, { stiffness: 120, damping: 22, mass: 0.5 });
-  const markSpringX = useSpring(rawX, { stiffness: 90, damping: 24, mass: 0.6 });
-  const markSpringY = useSpring(rawY, { stiffness: 90, damping: 24, mass: 0.6 });
-
-  const rectRef = useRef<DOMRect | null>(null);
-  const handleEnter = (e: MouseEvent<HTMLDivElement>) => {
-    rectRef.current = e.currentTarget.getBoundingClientRect();
-  };
-  const handleMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!parallaxActive || !rectRef.current) return;
-    const rect = rectRef.current;
-    const relX = (e.clientX - rect.left) / rect.width - 0.5;
-    const relY = (e.clientY - rect.top) / rect.height - 0.5;
-    rawX.set(clamp(relX * 10, 6));
-    rawY.set(clamp(relY * 8, 5));
-  };
-  const handleLeave = () => {
-    rectRef.current = null;
-    rawX.set(0);
-    rawY.set(0);
-  };
 
   return (
-    <div
-      ref={ref}
-      onMouseEnter={handleEnter}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      // `id` + scroll margin: Education has no section of its own, so this is
-      // what the mobile menu / footer "Education" links jump to. Below lg it
-      // spans the full row under Key Strengths; max-w-lg keeps the big "01"
-      // beside the content there instead of stranded at the far edge.
-      id="education"
-      className="relative mt-2 max-w-lg scroll-mt-24 lg:mt-0 lg:max-w-none lg:pl-9"
-    >
-      {/* huge subtle 01 behind the composition */}
-      <motion.span
-        aria-hidden="true"
-        style={parallaxActive ? { x: decorSpringX, y: decorSpringY } : undefined}
-        initial={reduce ? undefined : { opacity: 0, y: -10 }}
-        animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
-        transition={{ duration: 0.4, delay: reduce ? 0 : 0.06, ease: EASE }}
-        className="pointer-events-none absolute -top-3 right-0 z-0 select-none font-display text-7xl font-bold leading-none text-cream/10 sm:text-8xl lg:text-9xl"
-      >
-        01
-      </motion.span>
-
-      {/* vertical editorial EDUCATION rule, desktop only */}
-      <motion.span
-        aria-hidden="true"
-        style={parallaxActive ? { x: markSpringX, y: markSpringY, writingMode: 'vertical-rl' } : { writingMode: 'vertical-rl' }}
-        initial={reduce ? undefined : { opacity: 0 }}
-        animate={show ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.4, delay: reduce ? 0 : 0.03, ease: EASE }}
-        className="pointer-events-none absolute left-0 top-0 z-0 hidden select-none text-[10px] uppercase tracking-[0.5em] text-cream/15 lg:block"
-      >
-        Education
-      </motion.span>
-
-      {/* tiny technical/editorial marks */}
-      <span aria-hidden="true" className="pointer-events-none absolute right-1 top-24 hidden h-3 w-px bg-cream/15 sm:block" />
-      <span aria-hidden="true" className="pointer-events-none absolute right-1 top-[7.5rem] hidden h-1 w-1 rounded-full bg-cream/20 sm:block" />
-      <span aria-hidden="true" className="pointer-events-none absolute -left-1 bottom-0 hidden text-[8px] uppercase tracking-[0.3em] text-cream/10 lg:block">
-        N.01
-      </span>
-
-      <div className="relative z-10">
+    <div ref={ref} className="relative mt-2 lg:mt-0 lg:pl-9">
+      <div className="max-w-sm">
         <motion.span
-          initial={reduce ? undefined : { opacity: 0 }}
-          animate={show ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.35, ease: EASE }}
-          className="block text-xs uppercase tracking-[0.3em] text-cream/45"
+          initial={reduce ? undefined : { opacity: 0, y: 10 }}
+          animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="block font-display text-xs uppercase tracking-[0.3em] text-cream/45"
         >
-          Education
+          What I Bring
         </motion.span>
 
-        <div className="mt-6 max-w-sm">
-          <motion.div
-            onPointerEnter={(e) => e.pointerType === 'mouse' && setIsHovered(true)}
-            onPointerLeave={() => setIsHovered(false)}
-            animate={reduce ? undefined : { y: isHovered ? -3 : 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            // Phones: keep the degree clear of the decorative "01" (it wraps
-            // onto two lines, as it already does on desktop).
-            className="pr-20 sm:pr-0"
-          >
-            <WordsPullUp
-              as="h3"
-              text={education.degree}
-              delay={reduce ? 0 : 0.1}
-              stagger={0.04}
-              className="font-display text-3xl font-bold leading-[0.95] tracking-tightest text-cream sm:text-4xl lg:text-5xl"
-            />
+        <motion.span
+          initial={reduce ? undefined : { opacity: 0, y: 8 }}
+          animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+          transition={{ duration: 0.5, delay: reduce ? 0 : 0.08, ease: EASE }}
+          className="mt-3 block font-display text-sm font-semibold uppercase tracking-wide text-cream/75 sm:text-base"
+        >
+          Development <span className="text-cream/30">×</span> Design{' '}
+          <span className="text-cream/30">×</span> Business
+        </motion.span>
 
-            <span
-              aria-hidden="true"
-              className={`mt-3 block h-px bg-cream/40 transition-all duration-400 ease-premium ${
-                isHovered ? 'w-14 opacity-100' : 'w-0 opacity-0'
-              }`}
-            />
-            <AnimatePresence>
-              {isHovered && (
-                <motion.span
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4 }}
-                  transition={{ duration: 0.2, ease: EASE }}
-                  className="mt-2 block text-[9px] uppercase tracking-[0.3em] text-cream/40"
-                >
-                  Academic Path
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.div>
-
-          <motion.p
-            initial={reduce ? undefined : { opacity: 0, y: 8 }}
-            animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-            transition={{ duration: 0.35, delay: reduce ? 0 : 0.5, ease: EASE }}
-            className="mt-3 text-sm text-text-secondary sm:text-base"
-          >
-            {education.field}
-          </motion.p>
-          <motion.p
-            initial={reduce ? undefined : { opacity: 0, y: 8 }}
-            animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-            transition={{ duration: 0.35, delay: reduce ? 0 : 0.58, ease: EASE }}
-            className="mt-1 text-sm text-text-secondary sm:text-base"
-          >
-            {education.institution}
-          </motion.p>
-
-          <div className="mt-8 flex items-center gap-3">
-            <div className="h-px flex-1 overflow-hidden">
-              <motion.div
-                initial={reduce ? undefined : { scaleX: 0 }}
-                animate={show ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: 0.4, delay: reduce ? 0 : 0.55, ease: EASE }}
-                style={{ transformOrigin: 'left' }}
-                className="h-full w-full bg-cream/25"
-              />
-            </div>
-            <motion.span
-              aria-hidden="true"
-              initial={reduce ? undefined : { scale: 0, opacity: 0 }}
-              animate={show ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-              transition={{ duration: 0.25, delay: reduce ? 0 : 0.9, ease: EASE }}
-              className="h-1.5 w-1.5 shrink-0 rounded-full bg-cream/50"
-            />
-            <motion.span
-              initial={reduce ? undefined : { opacity: 0 }}
-              animate={show ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.35, delay: reduce ? 0 : 0.95, ease: EASE }}
-              className="shrink-0 text-[10px] uppercase tracking-[0.3em] text-cream/55"
+        <ul className="mt-7 space-y-5">
+          {whatIBring.map((item, i) => (
+            <motion.li
+              key={item.n}
+              initial={reduce ? undefined : { opacity: 0, y: 12 }}
+              animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.5, delay: reduce ? 0 : 0.16 + i * 0.1, ease: EASE }}
+              className="group flex gap-4"
             >
-              {education.status}
-            </motion.span>
-          </div>
-
-          {/* What I Bring — fills the space below Education with a compact,
-              secondary editorial block instead of leaving it empty. */}
-          <div className="mt-14 max-w-sm border-t border-cream/10 pt-8 sm:mt-16">
-            <motion.span
-              initial={reduce ? undefined : { opacity: 0, y: 10 }}
-              animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.5, delay: reduce ? 0 : 1.0, ease: EASE }}
-              className="block font-display text-xs uppercase tracking-[0.3em] text-cream/45"
-            >
-              What I Bring
-            </motion.span>
-
-            <motion.span
-              initial={reduce ? undefined : { opacity: 0, y: 8 }}
-              animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-              transition={{ duration: 0.5, delay: reduce ? 0 : 1.08, ease: EASE }}
-              className="mt-3 block font-display text-sm font-semibold uppercase tracking-wide text-cream/75 sm:text-base"
-            >
-              Development <span className="text-cream/30">×</span> Design{' '}
-              <span className="text-cream/30">×</span> Business
-            </motion.span>
-
-            <ul className="mt-7 space-y-5">
-              {whatIBring.map((item, i) => (
-                <motion.li
-                  key={item.n}
-                  initial={reduce ? undefined : { opacity: 0, y: 12 }}
-                  animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-                  transition={{ duration: 0.5, delay: reduce ? 0 : 1.16 + i * 0.1, ease: EASE }}
-                  className="group flex gap-4"
-                >
-                  <span className="shrink-0 font-display text-xs tracking-[0.15em] text-cream/30 transition-colors duration-300 ease-premium group-hover:text-cream/70">
-                    {item.n}
-                  </span>
-                  <div>
-                    <span className="block font-display text-sm font-semibold uppercase tracking-[0.04em] text-cream/80 transition-colors duration-300 ease-premium group-hover:text-cream sm:text-base">
-                      {item.title}
-                    </span>
-                    <span className="mt-1 block text-xs leading-relaxed text-text-secondary transition-colors duration-300 ease-premium group-hover:text-cream/70 sm:text-sm">
-                      {item.desc}
-                    </span>
-                  </div>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        </div>
+              <span className="shrink-0 font-display text-xs tracking-[0.15em] text-cream/30 transition-colors duration-300 ease-premium group-hover:text-cream/70">
+                {item.n}
+              </span>
+              <div>
+                <span className="block font-display text-sm font-semibold uppercase tracking-[0.04em] text-cream/80 transition-colors duration-300 ease-premium group-hover:text-cream sm:text-base">
+                  {item.title}
+                </span>
+                <span className="mt-1 block text-xs leading-relaxed text-text-secondary transition-colors duration-300 ease-premium group-hover:text-cream/70 sm:text-sm">
+                  {item.desc}
+                </span>
+              </div>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -527,7 +361,7 @@ export default function Skills() {
           </motion.div>
         </div>
 
-        {/* Key strengths + Education */}
+        {/* Key strengths + What I Bring */}
         <div className="mt-16 grid gap-14 sm:mt-24 lg:grid-cols-[1.4fr_1fr] lg:gap-10">
           <div>
             <span className="text-xs uppercase tracking-[0.3em] text-cream/45">Key Strengths</span>
@@ -549,7 +383,7 @@ export default function Skills() {
             </div>
           </div>
 
-          <EducationObject reduce={reduce} isFine={isFine} />
+          <WhatIBring reduce={reduce} />
         </div>
       </div>
     </section>
