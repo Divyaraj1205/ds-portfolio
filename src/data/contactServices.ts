@@ -1,6 +1,6 @@
 // Service options for the contact form's multi-select. Mirrors the real
 // capabilities/specializations already represented elsewhere on the site
-// (see capabilities/specialization in content.ts, and the Graphic Designer
+// (see capabilities in content.ts, the What We Do Best cards, and the Graphic Designer
 // responsibilities in Experience.tsx) -- kept as its own list rather than
 // importing those arrays directly so this form's option set can't shift if
 // Skills' own data changes shape later.

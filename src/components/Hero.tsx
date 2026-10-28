@@ -1,7 +1,7 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { useContactModal } from '../context/useContactModal';
-import { heroVideoUrl, personal } from '../data/content';
+import { heroVideo, personal } from '../data/content';
 import MagneticButton from './MagneticButton';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -9,6 +9,13 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export default function Hero() {
   const reduce = useReducedMotion();
   const [videoError, setVideoError] = useState(false);
+  // Phones get the 720p copy; with Data Saver on (or a 2G link) the poster
+  // frame stands in for the video altogether.
+  const [videoSrc] = useState(() => {
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (conn?.saveData || /(^|-)2g$/.test(conn?.effectiveType ?? '')) return null;
+    return window.matchMedia('(max-width: 767px)').matches ? heroVideo.mobile : heroVideo.desktop;
+  });
   const { open: openContactModal } = useContactModal();
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,14 +48,15 @@ export default function Hero() {
             <video
               ref={videoRef}
               className="absolute inset-0 h-full w-full object-cover"
-              autoPlay
+              src={videoSrc ?? undefined}
+              poster={heroVideo.poster}
+              autoPlay={videoSrc !== null}
               loop
               muted
               playsInline
+              preload={videoSrc ? 'auto' : 'none'}
               onError={() => setVideoError(true)}
-            >
-              <source src={heroVideoUrl} type="video/mp4" />
-            </video>
+            />
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-900" />
           )}
@@ -59,8 +67,8 @@ export default function Hero() {
         <div className="pointer-events-none absolute inset-0 [box-shadow:inset_0_0_18vw_rgba(0,0,0,0.65)]" />
         <div className="bg-noise" aria-hidden="true" />
 
-        {/* Content */}
-        <div className="relative flex h-full w-full flex-col justify-between px-5 pb-6 pt-24 sm:px-8 sm:pt-28 md:px-12 md:pb-8 md:pt-32 lg:px-14">
+        {/* Content -- padded so its text sits on the shared frame line (the card is inset 8 / 16 / 20px) */}
+        <div className="relative flex h-full w-full flex-col justify-between px-[calc(max(var(--g),(100%_+_16px_-_var(--frame))_/_2)_-_8px)] pb-6 pt-24 sm:px-[calc(max(var(--g),(100%_+_32px_-_var(--frame))_/_2)_-_16px)] sm:pt-28 md:px-[calc(max(var(--g),(100%_+_40px_-_var(--frame))_/_2)_-_20px)] md:pb-8 md:pt-32">
           {/* Eyebrow */}
           <motion.div
             initial={reduce ? undefined : { opacity: 0, y: 12 }}

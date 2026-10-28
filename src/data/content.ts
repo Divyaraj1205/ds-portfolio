@@ -13,30 +13,6 @@ export const personal = {
   emailHref: 'mailto:bhattidivyaraj5@gmail.com',
 } as const;
 
-export const aboutSummary =
-  'Creative and detail-oriented Web Developer & Graphic Designer with 1+ year of hands-on freelance and client-based experience in developing modern responsive websites and creating professional digital designs.';
-
-export const aboutAbility =
-  'Able to understand client requirements and transform ideas into practical, responsive, visually polished, user-focused and business-oriented digital experiences.';
-
-export const aboutSkills = [
-  'HTML',
-  'CSS',
-  'Bootstrap',
-  'JavaScript',
-  'React',
-  'WordPress',
-  'Elementor',
-  'Shopify',
-  'UI/UX',
-  'Graphic Design',
-  'SEO Fundamentals',
-  'Meta Ads',
-  'AI-Assisted Development',
-  'Prompt Engineering',
-  'AI Automation',
-] as const;
-
 export interface Capability {
   number: string;
   title: string;
@@ -83,17 +59,6 @@ export const tools: Tool[] = [
   { name: 'Prompt Engineering' },
   { name: 'AI Automation' },
 ];
-
-export const specialization = [
-  'Frontend Development',
-  'WordPress Development',
-  'Shopify Development',
-  'Website UI Design',
-  'Responsive Design',
-  'Graphic Design',
-  'Landing Pages',
-  'E-Commerce Design',
-] as const;
 
 export const keyStrengths = [
   'Problem Solving & Creative Thinking',
@@ -168,8 +133,13 @@ export const projects: Project[] = [
   },
 ];
 
-export const heroVideoUrl =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4';
+// Hero background loop, re-encoded from the original 16MB clip: a 1080p copy
+// (1.8MB), a 720p copy for phones (0.6MB) and its first frame as the poster.
+export const heroVideo = {
+  desktop: '/hero.mp4',
+  mobile: '/hero-mobile.mp4',
+  poster: '/hero-poster.webp',
+};
 
 export const navLinks = [
   { label: 'About', href: '#about' },

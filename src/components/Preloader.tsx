@@ -156,7 +156,7 @@ export default function Preloader({ onLoaded, onFinished }: PreloaderProps) {
             className="h-16 w-16 sm:h-20 sm:w-20 md:h-16 md:w-16 lg:h-20 lg:w-20 xl:h-24 xl:w-24"
           >
             <img
-              src="/db-logo-mark.png"
+              src="/db-logo-mark.webp"
               alt={`${personal.name} logo`}
               className="h-full w-full object-contain"
               draggable={false}

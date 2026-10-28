@@ -12,8 +12,8 @@ export default function Work() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="work" className="bg-black px-4 py-16 sm:px-6 sm:py-24 md:py-32">
-      <div className="mx-auto max-w-7xl">
+    <section id="work" className="bg-black py-[calc(var(--sy)/2)]">
+      <div className="frame">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <WordsPullUp
             as="h2"

@@ -23,10 +23,10 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden bg-black px-4 py-20 sm:px-6 sm:py-28 md:py-40"
+      className="relative overflow-hidden bg-black py-[calc(var(--sy)/2)]"
     >
       <div className="bg-noise" aria-hidden="true" />
-      <div className="relative mx-auto max-w-6xl">
+      <div className="frame relative">
         <motion.h2
           style={reduce ? undefined : { y: headingY }}
           className="max-w-4xl font-display text-4xl font-bold leading-[0.95] tracking-tightest text-cream sm:text-7xl md:text-8xl"

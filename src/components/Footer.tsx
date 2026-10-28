@@ -11,13 +11,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-cream/10 bg-black px-4 py-12 sm:px-6 md:py-16">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+    <footer className="border-t border-cream/10 bg-black py-12 md:py-16">
+      <div className="frame flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <span className="font-display text-xl font-semibold tracking-tightest text-cream sm:text-2xl">
             {personal.name.toUpperCase()}
           </span>
-          <p className="mt-2 text-xs uppercase tracking-[0.2em] text-cream/45">{personal.title}</p>
+          <p className="mt-2 text-xs uppercase tracking-[0.2em] text-cream/60">{personal.title}</p>
         </div>
 
         <nav aria-label="Footer">
@@ -38,8 +38,8 @@ export default function Footer() {
         </nav>
       </div>
 
-      <div className="mx-auto mt-10 max-w-7xl border-t border-cream/10 pt-6 text-xs text-cream/55">
-        © {year} {personal.name}
+      <div className="frame mt-10">
+        <div className="border-t border-cream/10 pt-6 text-xs text-cream/55">© {year} {personal.name}</div>
       </div>
     </footer>
   );

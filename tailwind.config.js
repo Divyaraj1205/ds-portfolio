@@ -13,6 +13,11 @@ export default {
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'sans-serif'],
+        // Used by the "What Makes Me Different" block (matches its mockup).
+        inter: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        // Used by the About section (matches its mockup).
+        outfit: ['Outfit', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        albert: ['"Albert Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
         sans: [
           'Poppins',
           '-apple-system',

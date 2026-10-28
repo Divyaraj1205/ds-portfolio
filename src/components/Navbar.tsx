@@ -139,7 +139,7 @@ export default function Navbar() {
               data-cursor="link"
             >
               <img
-                src="/db-logo-mark.png"
+                src="/db-logo-mark.webp"
                 alt={`${personal.name} logo`}
                 className="h-7 w-7 object-contain sm:h-8 sm:w-8"
                 draggable={false}
@@ -222,7 +222,7 @@ export default function Navbar() {
           >
             <div className="flex items-center justify-between">
               <img
-                src="/db-logo-mark.png"
+                src="/db-logo-mark.webp"
                 alt={`${personal.name} logo`}
                 className="h-7 w-7 object-contain"
                 draggable={false}
