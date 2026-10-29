@@ -42,24 +42,6 @@ export const capabilities: Capability[] = [
   },
 ];
 
-export interface Tool {
-  name: string;
-}
-
-export const tools: Tool[] = [
-  { name: 'Canva' },
-  { name: 'Adobe Photoshop' },
-  { name: 'VS Code' },
-  { name: 'WordPress' },
-  { name: 'Elementor' },
-  { name: 'Shopify' },
-  { name: 'Git' },
-  { name: 'GitHub' },
-  { name: 'AI Tools' },
-  { name: 'Prompt Engineering' },
-  { name: 'AI Automation' },
-];
-
 export const keyStrengths = [
   'Problem Solving & Creative Thinking',
   'Client Communication & Requirement Understanding',

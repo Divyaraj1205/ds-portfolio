@@ -1,39 +1,11 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import {
-  Bot,
-  Check,
-  Code2,
-  FolderGit2,
-  GitBranch,
-  Globe,
-  Image as ImageIcon,
-  LayoutGrid,
-  MessageSquare,
-  Palette,
-  ShoppingBag,
-  Sparkles,
-} from 'lucide-react';
-import { type ComponentType } from 'react';
-import { capabilities, tools } from '../data/content';
+import { Check } from 'lucide-react';
+import { capabilities } from '../data/content';
 import WhatMakesMeDifferent from './WhatMakesMeDifferent';
 import WhatWeDoBest from './WhatWeDoBest';
 import WordsPullUp from './WordsPullUp';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-const toolIcons: Record<string, ComponentType<{ className?: string }>> = {
-  Canva: Palette,
-  'Adobe Photoshop': ImageIcon,
-  'VS Code': Code2,
-  WordPress: Globe,
-  Elementor: LayoutGrid,
-  Shopify: ShoppingBag,
-  Git: GitBranch,
-  GitHub: FolderGit2,
-  'AI Tools': Sparkles,
-  'Prompt Engineering': MessageSquare,
-  'AI Automation': Bot,
-};
 
 function CapabilityCard({
   number,
@@ -91,29 +63,6 @@ export default function Skills() {
           {capabilities.map((cap, index) => (
             <CapabilityCard key={cap.number} {...cap} index={index} />
           ))}
-        </div>
-
-        {/* Tools */}
-        <div className="mt-16 sm:mt-24">
-          <span className="text-xs uppercase tracking-[0.3em] text-cream/60">Tools</span>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {tools.map((tool, i) => {
-              const Icon = toolIcons[tool.name] ?? Sparkles;
-              return (
-                <motion.span
-                  key={tool.name}
-                  initial={reduce ? undefined : { opacity: 0, y: 10 }}
-                  whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
-                  transition={{ duration: 0.5, delay: i * 0.03, ease: EASE }}
-                  className="group flex items-center gap-2 rounded-full border border-cream/10 px-4 py-2 text-xs text-cream/70 transition-[border-color,background-color,color] duration-300 ease-premium hover:border-cream/35 hover:bg-cream/5 hover:text-cream sm:text-sm"
-                >
-                  <Icon className="h-3.5 w-3.5 text-cream/50 transition-colors duration-300 ease-premium group-hover:text-cream/80" />
-                  {tool.name}
-                </motion.span>
-              );
-            })}
-          </div>
         </div>
       </div>
 
