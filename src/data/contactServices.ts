@@ -7,6 +7,7 @@
 export const contactServiceOptions = [
   'Web Development',
   'WordPress Development',
+  'Software & CRM Development',
   'Shopify / E-Commerce',
   'UI/UX Design',
   'Graphic Design',

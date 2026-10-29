@@ -77,7 +77,9 @@ export default function Hero() {
             className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.25em] text-cream/60 sm:text-xs"
           >
             <span>Web Developer</span>
-            <span aria-hidden="true">&</span>
+            <span aria-hidden="true">/</span>
+            <span>Software Developer</span>
+            <span aria-hidden="true">/</span>
             <span>Graphic Designer</span>
           </motion.div>
 
@@ -101,9 +103,9 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.62, ease: EASE }}
               className="max-w-xs text-sm leading-relaxed text-cream/70 sm:max-w-sm sm:text-base"
             >
-              Creative and detail-oriented Web Developer &amp; Graphic Designer with 1+ year of
-              hands-on freelance and client-based experience in developing modern responsive
-              websites and creating professional digital designs.
+              Creative and detail-oriented developer and designer with 1.5+ years of hands-on
+              freelance and client-based experience building modern responsive websites,
+              web-based business software and professional digital designs.
             </motion.p>
 
             <div className="flex flex-wrap items-center gap-4">
@@ -131,6 +133,7 @@ export default function Hero() {
           {/* Micro details */}
           <div className="mt-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[10px] uppercase tracking-[0.3em] text-cream/35 sm:text-[11px]">
             <span>Web / Design / AI</span>
+            <span className="order-last w-full sm:order-none sm:w-auto">{personal.experience} Experience</span>
             <span>{personal.locationShort}</span>
           </div>
         </div>

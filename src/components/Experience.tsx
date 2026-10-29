@@ -8,15 +8,19 @@ import {
   type Variants,
 } from 'framer-motion';
 import {
+  AppWindow,
   Atom,
   Briefcase,
+  Building2,
   Code2,
   Camera,
+  Database,
   FileCode,
   Fingerprint,
   Globe,
   Image as ImageIcon,
   Layers,
+  LayoutDashboard,
   LayoutGrid,
   MessageSquare,
   Palette,
@@ -26,16 +30,17 @@ import {
   ShoppingBag,
   Sparkles,
   Type,
+  Workflow,
   type LucideIcon,
 } from 'lucide-react';
 import { useRef } from 'react';
 import { useFinePointer, useMediaQuery } from '../hooks/useMediaQuery';
 import HowIWork from './HowIWork';
-import { capabilities, experienceResponsibilities, personal } from '../data/content';
+import { capabilities, experienceResponsibilities, personal, softwareResponsibilities } from '../data/content';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-type IdentityId = 'developer' | 'designer';
+type IdentityId = 'developer' | 'software' | 'designer';
 
 const stagger: Variants = {
   closed: {},
@@ -66,7 +71,11 @@ interface RoleData {
   title: string;
   category: string;
   tagline: string;
+  /** the badge under the title; defaults to category / experience / engagement */
+  meta?: string[];
   responsibilities: ResponsibilityItem[];
+  /** heading of the right-hand column; defaults to "Tools & Technologies" */
+  techLabel?: string;
   tech: TechItem[];
 }
 
@@ -97,8 +106,30 @@ const roles: RoleData[] = [
     ],
   },
   {
-    id: 'designer',
+    id: 'software',
     number: '02',
+    title: 'Software Developer',
+    category: 'Software Development',
+    meta: ['Software Development', 'CRM Development', 'Web-Based Solutions'],
+    tagline: 'Plan / Build / Streamline',
+    responsibilities: [
+      { text: softwareResponsibilities[0], icon: LayoutDashboard },
+      { text: softwareResponsibilities[1], icon: AppWindow },
+    ],
+    // No specific stack was named for this work, so this column lists the
+    // areas it covered rather than tools.
+    techLabel: 'Focus Areas',
+    tech: [
+      { name: 'CRM Development', icon: LayoutDashboard },
+      { name: 'Workflow Automation', icon: Workflow },
+      { name: 'Record Management', icon: Database },
+      { name: 'Business Operations', icon: Building2 },
+      { name: 'Web-Based Software', icon: AppWindow },
+    ],
+  },
+  {
+    id: 'designer',
+    number: '03',
     title: 'Graphic Designer',
     category: 'Graphic Design',
     tagline: 'Ideas / Design / Impact',
@@ -308,15 +339,16 @@ function ExperiencePanel({ role, reduce }: ExperiencePanelProps) {
             transition={{ duration: 0.5, delay: reduce ? 0 : 0.3, ease: EASE }}
             className="mt-7 flex max-w-xl flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-cream/15 px-6 py-2.5 text-[10px] uppercase tracking-[0.14em] text-cream/55 sm:text-[11px]"
           >
-            <span>{role.category}</span>
-            <span className="text-cream/20" aria-hidden="true">
-              /
-            </span>
-            <span>{metaExperience}</span>
-            <span className="text-cream/20" aria-hidden="true">
-              /
-            </span>
-            <span>{metaEngagement}</span>
+            {(role.meta ?? [role.category, metaExperience, metaEngagement]).map((label, i) => (
+              <span key={label} className="contents">
+                {i > 0 && (
+                  <span className="text-cream/20" aria-hidden="true">
+                    /
+                  </span>
+                )}
+                <span>{label}</span>
+              </span>
+            ))}
           </motion.div>
         </div>
 
@@ -350,7 +382,7 @@ function ExperiencePanel({ role, reduce }: ExperiencePanelProps) {
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-cream/20 text-cream/55">
                 <Settings2 className="h-4 w-4" strokeWidth={1.5} />
               </span>
-              <span className="text-xs uppercase tracking-[0.25em] text-cream/45">Tools &amp; Technologies</span>
+              <span className="text-xs uppercase tracking-[0.25em] text-cream/45">{role.techLabel ?? 'Tools & Technologies'}</span>
             </div>
             <motion.div
               initial={false}
@@ -382,11 +414,11 @@ function ExperiencePanel({ role, reduce }: ExperiencePanelProps) {
   );
 }
 
-// A minimal connector between the two panels -- a short vertical rail with
-// "01"/"02" endpoints and a small point that travels down it as this
-// specific stretch of the page scrolls through view. Purely a continuity
-// cue, not a label.
-function PanelConnector({ reduce }: { reduce: boolean }) {
+// A minimal connector between two panels -- a short vertical rail with the
+// two panels' numbers as endpoints and a small point that travels down it as
+// this specific stretch of the page scrolls through view. Purely a
+// continuity cue, not a label.
+function PanelConnector({ reduce, from, to }: { reduce: boolean; from: string; to: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.8', 'end 0.2'] });
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.4 });
@@ -396,7 +428,7 @@ function PanelConnector({ reduce }: { reduce: boolean }) {
 
   return (
     <div ref={ref} className="mx-auto flex flex-col items-center py-10 sm:py-14">
-      <span className="text-[10px] tracking-[0.35em] text-cream/55">01</span>
+      <span className="text-[10px] tracking-[0.35em] text-cream/55">{from}</span>
       <div className="relative mt-4 h-16 w-px bg-cream/10 sm:h-20">
         {!reduce && (
           <motion.div aria-hidden="true" style={{ y: dotY }} className="absolute inset-0">
@@ -404,7 +436,7 @@ function PanelConnector({ reduce }: { reduce: boolean }) {
           </motion.div>
         )}
       </div>
-      <span className="mt-4 text-[10px] tracking-[0.35em] text-cream/55">02</span>
+      <span className="mt-4 text-[10px] tracking-[0.35em] text-cream/55">{to}</span>
     </div>
   );
 }
@@ -414,9 +446,12 @@ function ExperienceShowcase({ reduce }: { reduce: boolean }) {
     // No extra gutter below sm: the section's own px-4 already provides it
     // (doubling it squeezed the panels' text column on phones).
     <div className="frame">
-      <ExperiencePanel role={roles[0]} reduce={reduce} />
-      <PanelConnector reduce={reduce} />
-      <ExperiencePanel role={roles[1]} reduce={reduce} />
+      {roles.map((role, i) => (
+        <div key={role.id}>
+          {i > 0 && <PanelConnector reduce={reduce} from={roles[i - 1].number} to={role.number} />}
+          <ExperiencePanel role={role} reduce={reduce} />
+        </div>
+      ))}
     </div>
   );
 }

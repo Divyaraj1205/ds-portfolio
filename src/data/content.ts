@@ -3,8 +3,8 @@ export const personal = {
   firstName: 'Bhatti',
   lastName: 'Divyaraj',
   displayLast: 'DIVYARAJ',
-  title: 'Web Developer & Graphic Designer',
-  experience: '1+ Year',
+  title: 'Web Developer / Software Developer / Graphic Designer',
+  experience: '1.5+ Years',
   location: 'Rajkot, Gujarat, India',
   locationShort: 'RAJKOT — INDIA',
   phone: '+91 98259 11101',
@@ -67,6 +67,12 @@ export const keyStrengths = [
   'Attention to Detail',
   'Fast Learning & Adaptability',
   'Business-Oriented Approach',
+] as const;
+
+// Software Developer role (Experience): the CRM work and web-based software.
+export const softwareResponsibilities = [
+  'Developed a custom CRM system to streamline business workflows, manage records and support day-to-day business operations.',
+  'Involved in developing web-based software solutions tailored to business needs.',
 ] as const;
 
 export const experienceResponsibilities = [

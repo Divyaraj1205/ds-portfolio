@@ -176,9 +176,9 @@ export default function Preloader({ onLoaded, onFinished }: PreloaderProps) {
             initial={reduce ? undefined : { opacity: 0 }}
             animate={reduce ? undefined : { opacity: 1 }}
             transition={{ duration: TAGLINE_DURATION / 1000, delay: TAGLINE_DELAY / 1000, ease: EASE }}
-            className="mt-3 whitespace-nowrap text-[9px] uppercase tracking-[0.35em] text-cream/45 sm:text-[10px]"
+            className="mt-3 max-w-[16rem] text-center text-[9px] uppercase leading-relaxed tracking-[0.35em] text-cream/45 sm:max-w-none sm:whitespace-nowrap sm:text-[10px]"
           >
-            Web Developer / Graphic Designer
+            Web Developer / Software Developer / Graphic Designer
           </motion.p>
 
           <motion.span
